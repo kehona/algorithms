@@ -31,7 +31,8 @@ public class Percolation {
 	    	//to open a site, set the value to n * n;
 	    	uf.union(imaginarySite1, id);
 	    	if (id < columns) {
-	    		arr[id] = imaginarySite2;
+	    		//arr[id] = imaginarySite2;
+	    		uf.union(imaginarySite2, id);
 	    	}
 	    	
 	    	if ((col + 1 <= columns) || isOpen(row, col + 1)) {
