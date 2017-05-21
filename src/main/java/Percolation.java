@@ -1,9 +1,17 @@
+import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 
 /**
  * 
  * @author Kehinde Onadipe
+ * This is the solution to the percolation problem in Princeton Algorithms class.
+ * 
+ * The Percolation Datastructure uses the WeightedQuickUnion datastructure to maintain states
+ * of connected sites.
+ * 
+ * In Percolation, we using another grid to  maintain sites
+ * 
  *
  */
 public class Percolation {
@@ -14,6 +22,10 @@ public class Percolation {
 	int imaginarySite1;
 	int imaginarySite2;
 	
+	/**
+	 * 
+	 * @param n
+	 */
 	public Percolation(int n) { // create n-by-n grid, with all sites blocked
 		uf = new WeightedQuickUnionUF(n * n + 2); //adding extra two virtual sites
 		arr = new int[n*n + 2];
@@ -30,7 +42,12 @@ public class Percolation {
 			uf.union(imaginarySite2, columns * columns - (n - i));
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 */
 	public void open(int row, int col) { // open site (row, col) if it is not								// open already
 	    if (!isOpen(row, col)) {
 	    	int id = xyToID(row, col);
@@ -56,13 +73,25 @@ public class Percolation {
 	    }
 	   
 	}
-
+	
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	public boolean isOpen(int row, int col) { // is site (row, col) open?
 		int id = xyToID(row, col);
 		return arr[id] != id;
 
 	}
-
+	
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	public boolean isFull(int row, int col) { // is site (row, col) full?
 		int id = xyToID(row, col);
 		if (isOpen(row, col)) {
@@ -70,7 +99,11 @@ public class Percolation {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public int numberOfOpenSites() { // number of open sites
 		int count = 0; 
 		for (int i = 0; i < arr.length; i++) {
@@ -80,36 +113,33 @@ public class Percolation {
 		}
 		return count;
 	}
-
+	
+	/**
+	 * 
+	 * @return true if the system percolates and false if it does not
+	 */
 	public boolean percolates() { // does the system percolate?
 		return uf.connected(imaginarySite1, imaginarySite2);
 	}
 	
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 * @return the mapped 1 dimensional ID of a 2 dimensional grid 
+	 */
 	private int xyToID(int row, int col) {
 		return (row - 1) * columns + (col - 1);
 	}
 	
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) { // test client (optional)
-		Percolation p = new Percolation(2);
-		p.open(1, 1);
-		p.open(2, 1);
-		p.open(2, 2);
-
-		int id1 = p.xyToID(1, 1);
-		int id2 = p.xyToID(2, 1);
-		System.out.println(id2);
+		int n = StdIn.readInt();
 		
 		
-		System.out.println(p.uf.find(id1));
-
-		//System.out.println(p.uf.connected(id1, id1));
-		
-		System.out.println(p.isFull(1, 2));
-		System.out.println(p.uf.find(id1));
-		System.out.println(p.uf.find(id2));
-		System.out.println(p.numberOfOpenSites());
-		System.out.println(p.percolates());
-	
 	}
 
 }
