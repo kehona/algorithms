@@ -85,8 +85,8 @@ public class PercolationStats {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int n = 2;// StdIn.readInt();
-		int t = 1000000; //StdIn.readInt();
+		int n = StdIn.readInt();
+		int t = StdIn.readInt();
 
 		PercolationStats ps = new PercolationStats(n, t);
 
